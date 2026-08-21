@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=1212">
+<link rel="stylesheet" href="_ds/broadsheet-c2062ae8-99be-4bf2-b23b-0e78994543cf/styles.css">
+<script src="_ds/broadsheet-c2062ae8-99be-4bf2-b23b-0e78994543cf/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; overflow: hidden; }
+  a { color: var(--color-accent); }
+  a:hover { color: var(--color-accent-700); }
+  .glass { background: linear-gradient(155deg, rgba(255,255,255,0.72), rgba(255,255,255,0.42)); -webkit-backdrop-filter: blur(18px) saturate(1.25); backdrop-filter: blur(18px) saturate(1.25); border: 1px solid rgba(255,255,255,0.75); box-shadow: 0 10px 30px rgba(32,30,29,0.10), inset 0 1px 0 rgba(255,255,255,0.85); }
+  .glass-card { transition: box-shadow .18s ease, transform .18s ease; }
+  .glass-card:hover { box-shadow: 0 16px 40px rgba(32,30,29,0.14), inset 0 1px 0 rgba(255,255,255,0.9); }
+  .navbtn:hover { background: rgba(0,136,176,0.12); }
+  .navbtn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .daycell:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+</style>
+</helmet>
+<div style="width: 1212px; height: 1102px; overflow: hidden; background: radial-gradient(1100px 620px at 12% -8%, rgba(0,136,176,0.20), transparent 62%), radial-gradient(900px 560px at 96% 10%, rgba(214,0,108,0.14), transparent 60%), radial-gradient(800px 700px at 60% 108%, rgba(237,187,0,0.13), transparent 62%), var(--color-bg); color: var(--color-text); font-family: var(--font-body); display: flex; flex-direction: column;">
+
+  <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 22px 28px 14px;">
+    <div onClick="{{ goHome }}" style="cursor: pointer; font-family: var(--font-heading); font-weight: 600; font-size: 34px; letter-spacing: -0.025em;">Eight Calendars</div>
+    <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 58%, transparent);">Friday, 21 August 2026 &nbsp;·&nbsp; Observance Desk</div>
+  </div>
+
+  <nav class="glass" style="display: grid; grid-template-columns: repeat(8, 1fr); margin: 0 28px; border-radius: 14px; overflow: hidden;">
+    <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+      <button class="navbtn" onClick="{{ item.go }}" style="{{ item.style }}">{{ item.name }}</button>
+    </sc-for>
+  </nav>
+
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 22px; padding: 30px 28px 20px; min-height: 0;">
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; flex: 0 0 378px; min-height: 0;">
+        <sc-for list="{{ statesCals }}" as="cal" hint-placeholder-count="3">
+          <div class="card glass glass-card" style="padding: 18px 20px 16px; gap: 0; min-height: 0; overflow: hidden; border-radius: 16px; background-clip: padding-box;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+              <div class="card-kicker" style="font-size: 10px;">{{ cal.kicker }}</div>
+              <div style="font-size: 11px; font-style: italic; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ cal.native }}</div>
+            </div>
+            <div class="card-title" style="font-size: 26px; margin-top: 4px; letter-spacing: -0.02em;">{{ cal.name }}</div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 12px;">
+              <sc-for list="{{ cal.dowLong }}" as="d" hint-placeholder-count="7">
+                <div style="text-align: center; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent); padding-bottom: 5px;">{{ d }}</div>
+              </sc-for>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 33px; gap: 2px;">
+              <sc-for list="{{ cal.days }}" as="day" hint-placeholder-count="42">
+                <div class="daycell" tabIndex="{{ day.tab }}" onClick="{{ day.go }}" style="{{ day.styleLg }}">{{ day.text }}</div>
+              </sc-for>
+            </div>
+            <div style="margin-top: auto; padding-top: 10px; font-size: 12px; line-height: 1.45;">
+              <sc-for list="{{ cal.listed }}" as="m" hint-placeholder-count="2">
+                <div style="display: flex; gap: 8px;">
+                  <span style="font-variant-numeric: tabular-nums; color: color-mix(in srgb, var(--color-text) 45%, transparent); min-width: 20px;">{{ m.n }}</span>
+                  <span style="{{ m.labelStyle }}">{{ m.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; flex: 0 0 442px; min-height: 0;">
+        <sc-for list="{{ faithCals }}" as="cal" hint-placeholder-count="5">
+          <div class="card glass glass-card" style="padding: 15px 15px 13px; gap: 0; min-height: 0; overflow: hidden; border-radius: 14px; background-clip: padding-box;">
+            <div class="card-kicker" style="font-size: 9px;">{{ cal.kicker }}</div>
+            <div class="card-title" style="font-size: 20px; margin-top: 3px; letter-spacing: -0.02em;">{{ cal.name }}</div>
+            <div style="font-size: 10px; font-style: italic; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ cal.native }}</div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 10px;">
+              <sc-for list="{{ cal.dowShort }}" as="d" hint-placeholder-count="7">
+                <div style="text-align: center; font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent); padding-bottom: 4px;">{{ d }}</div>
+              </sc-for>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 36px; gap: 2px;">
+              <sc-for list="{{ cal.days }}" as="day" hint-placeholder-count="42">
+                <div class="daycell" tabIndex="{{ day.tab }}" onClick="{{ day.go }}" style="{{ day.styleSm }}">{{ day.text }}</div>
+              </sc-for>
+            </div>
+            <div style="margin-top: auto; padding-top: 8px; font-size: 11px; line-height: 1.4;">
+              <sc-for list="{{ cal.listed }}" as="m" hint-placeholder-count="2">
+                <div style="display: flex; gap: 6px;">
+                  <span style="font-variant-numeric: tabular-nums; color: color-mix(in srgb, var(--color-text) 45%, transparent); min-width: 16px;">{{ m.n }}</span>
+                  <span style="{{ m.labelStyle }}">{{ m.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 1; display: grid; grid-template-columns: 1fr 330px; gap: 22px; padding: 24px 28px 26px; min-height: 0;">
+
+      <div class="glass" style="display: flex; flex-direction: column; min-height: 0; border-radius: 18px; padding: 22px 24px 24px;">
+        <div style="display: flex; align-items: baseline; gap: 14px;">
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 40px; letter-spacing: -0.025em;">{{ detail.name }}</div>
+          <div style="font-size: 14px; font-style: italic; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ detail.native }}</div>
+        </div>
+        <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent-700); margin-top: 2px;">August 2026</div>
+        <div style="display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 16px;">
+          <sc-for list="{{ detail.dowLong }}" as="d" hint-placeholder-count="7">
+            <div style="text-align: center; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent); padding-bottom: 8px;">{{ d }}</div>
+          </sc-for>
+        </div>
+        <div style="flex: 1; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(6, 1fr); gap: 4px; min-height: 0;">
+          <sc-for list="{{ detail.days }}" as="day" hint-placeholder-count="42">
+            <div class="daycell" tabIndex="{{ day.tab }}" onClick="{{ day.go }}" style="{{ day.styleXl }}">
+              <div style="font-size: 17px; font-variant-numeric: tabular-nums;">{{ day.text }}</div>
+              <div style="font-size: 10px; line-height: 1.25; text-align: center; padding: 2px 4px 0;">{{ day.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="glass" style="display: flex; flex-direction: column; min-height: 0; border-radius: 18px; padding: 22px;">
+        <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent-2);">Today</div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 30px; line-height: 1.08; letter-spacing: -0.02em; margin-top: 6px;">{{ detail.todayTitle }}</div>
+        <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: 4px;">{{ detail.todayDate }}</div>
+        <div style="font-size: 15px; line-height: 1.6; margin-top: 18px;">{{ detail.body }}</div>
+        <div style="font-size: 15px; line-height: 1.6; margin-top: 12px; font-style: italic;">{{ detail.bodyItalic }}</div>
+        <div style="margin-top: 26px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent);">Also this month</div>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ detail.listed }}" as="m" hint-placeholder-count="3">
+            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.35;">
+              <span style="font-variant-numeric: tabular-nums; color: var(--color-accent-700); min-width: 24px;">{{ m.n }}</span>
+              <span>{{ m.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: auto;">
+          <button class="btn btn-secondary" onClick="{{ goHome }}">All eight calendars</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1212,&quot;height&quot;:1102}}">
+const WEEKS = [
+  [0,0,0,0,0,0,1],[2,3,4,5,6,7,8],[9,10,11,12,13,14,15],
+  [16,17,18,19,20,21,22],[23,24,25,26,27,28,29],[30,31,0,0,0,0,0]
+];
+const TODAY = 21;
+
+const CALS = [
+  { id: "us", name: "United States", kicker: "Government · Washington", native: "Gregorian 2026",
+    marks: { 4: "Coast Guard Day", 26: "Women's Equality Day" } },
+  { id: "cn", name: "China", kicker: "Government · Beijing", native: "Bingwu, 7th moon",
+    marks: { 1: "Army Day", 19: "Qixi Festival" } },
+  { id: "ru", name: "Russia", kicker: "Government · Moscow", native: "Gregorian 2026",
+    marks: { 22: "State Flag Day", 27: "Day of Cinema" } },
+  { id: "jud", name: "Judaism", kicker: "Faith · Hebrew", native: "Av–Elul 5786",
+    marks: { 14: "Rosh Chodesh Elul", 21: "Erev Shabbat" },
+    today: { title: "Erev Shabbat", date: "8 Elul 5786 · begins at sundown",
+      body: "The eve of the Sabbath, and the eighth day of Elul — the month of preparation before the High Holy Days. Candles are lit eighteen minutes before sunset.",
+      italic: "Elul is read as an acronym for “I am my beloved’s and my beloved is mine.”" } },
+  { id: "chr", name: "Christianity", kicker: "Faith · Liturgical", native: "Ordinary Time",
+    marks: { 6: "Transfiguration", 15: "Assumption" } },
+  { id: "isl", name: "Islam", kicker: "Faith · Hijri", native: "Safar–Rabiʿ I 1448",
+    marks: { 24: "Rabiʿ al-Awwal begins" } },
+  { id: "hin", name: "Hinduism", kicker: "Faith · Panchang", native: "Bhadrapada 1948",
+    marks: { 28: "Raksha Bandhan" } },
+  { id: "bud", name: "Buddhism", kicker: "Faith · Uposatha", native: "B.E. 2570",
+    marks: { 13: "New-moon Uposatha", 28: "Full-moon Uposatha" } }
+];
+
+const DOW_LONG = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const DOW_SHORT = ["S","M","T","W","T","F","S"];
+
+class Component extends DCLogic {
+  state = { view: "landing" };
+
+  go(id) { this.setState({ view: id }); }
+
+  cellStyle(kind, size) {
+    const pads = { sm: "0", lg: "0", xl: "8px 0 0" };
+    const s = {
+      display: "flex", flexDirection: "column", alignItems: "center",
+      justifyContent: size === "xl" ? "flex-start" : "center",
+      padding: pads[size], borderRadius: "var(--radius-md)",
+      fontVariantNumeric: "tabular-nums", border: "1px solid transparent",
+      fontSize: size === "sm" ? "11px" : size === "lg" ? "13px" : "17px",
+      background: "rgba(255,255,255,0.34)", cursor: "default", userSelect: "none",
+      color: "var(--color-text)",
+      backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
+      borderColor: "rgba(255,255,255,0.55)"
+    };
+    if (kind === "blank") { s.color = "transparent"; s.background = "transparent"; s.borderColor = "transparent"; return s; }
+    if (kind === "today") {
+      s.background = "linear-gradient(150deg, rgba(214,0,108,0.94), rgba(214,0,108,0.74))";
+      s.color = "#fff"; s.borderColor = "rgba(255,255,255,0.5)";
+      s.boxShadow = "0 6px 16px rgba(214,0,108,0.28)";
+      s.cursor = "pointer"; s.fontWeight = 600;
+      return s;
+    }
+    if (kind === "mark") {
+      s.background = "linear-gradient(150deg, rgba(0,136,176,0.30), rgba(0,136,176,0.14))";
+      s.color = "var(--color-accent-800)";
+      s.borderColor = "rgba(255,255,255,0.7)";
+      s.boxShadow = "0 4px 12px rgba(0,136,176,0.18)";
+      s.cursor = "pointer"; s.fontWeight = 600;
+      return s;
+    }
+    return s;
+  }
+
+  buildDays(cal, withLabels) {
+    const out = [];
+    WEEKS.forEach(w => w.forEach(n => {
+      if (!n) { out.push({ text: "", label: "", tab: -1, go: null,
+        styleSm: this.cellStyle("blank","sm"), styleLg: this.cellStyle("blank","lg"), styleXl: this.cellStyle("blank","xl") }); return; }
+      const label = cal.marks[n];
+      const kind = n === TODAY && label ? "today" : label ? "mark" : "plain";
+      out.push({
+        text: String(n),
+        label: withLabels && label ? label : "",
+        tab: label ? 0 : -1,
+        go: label ? () => this.go(cal.id) : null,
+        styleSm: this.cellStyle(kind,"sm"),
+        styleLg: this.cellStyle(kind,"lg"),
+        styleXl: this.cellStyle(kind,"xl")
+      });
+    }));
+    return out;
+  }
+
+  decorate(cal, withLabels) {
+    return {
+      ...cal,
+      dowLong: DOW_LONG, dowShort: DOW_SHORT,
+      days: this.buildDays(cal, withLabels),
+      listed: Object.keys(cal.marks).map(k => ({
+        n: k,
+        label: cal.marks[k],
+        labelStyle: Number(k) === TODAY
+          ? { color: "var(--color-accent-2)", fontWeight: 600 }
+          : { color: "color-mix(in srgb, var(--color-text) 78%, transparent)" }
+      }))
+    };
+  }
+
+  renderVals() {
+    const view = this.state.view;
+    const isLanding = view === "landing";
+    const active = CALS.find(c => c.id === view) || null;
+    const goHome = () => this.go("landing");
+
+    let detail = null;
+    if (active) {
+      const d = this.decorate(active, true);
+      const t = active.today || {
+        title: active.marks[TODAY] || "No observance today",
+        date: "21 August 2026 · " + active.native,
+        body: "Nothing is marked on today’s date in this calendar. The observances listed for the month are shown at right; select any highlighted day in the grid to read it.",
+        italic: ""
+      };
+      detail = { ...d, todayTitle: t.title, todayDate: t.date, body: t.body, bodyItalic: t.italic };
+    }
+
+    return {
+      isLanding, isDetail: !!active, detail, goHome,
+      statesCals: CALS.slice(0, 3).map(c => this.decorate(c, false)),
+      faithCals: CALS.slice(3).map(c => this.decorate(c, false)),
+      nav: CALS.map(c => {
+        const on = c.id === view;
+        return {
+          name: c.name,
+          go: () => this.go(c.id),
+          style: {
+            appearance: "none",
+            background: on ? "linear-gradient(150deg, rgba(0,136,176,0.95), rgba(0,136,176,0.78))" : "transparent",
+            color: on ? "#fff" : "var(--color-text)",
+            border: "none", borderRadius: "0",
+            fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "14px",
+            letterSpacing: "0.02em", padding: "13px 4px", cursor: "pointer",
+            boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,0.35)" : "none",
+            textAlign: "center"
+          }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

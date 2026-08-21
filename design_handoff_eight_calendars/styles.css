@@ -1,0 +1,110 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 620px at 12% -8%, rgba(0,136,176,.20), transparent 62%),
+    radial-gradient(900px 560px at 96% 10%, rgba(214,0,108,.14), transparent 60%),
+    radial-gradient(800px 700px at 60% 108%, rgba(237,187,0,.13), transparent 62%),
+    var(--color-bg);
+}
+
+button { font: inherit; }
+
+.app {
+  width: 1212px;
+  height: 1102px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text);
+}
+
+.glass {
+  background: linear-gradient(155deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border: 1px solid rgba(255,255,255,.75);
+  box-shadow: 0 10px 30px rgba(32,30,29,.10), inset 0 1px 0 rgba(255,255,255,.85);
+}
+
+.masthead { display: flex; align-items: baseline; justify-content: space-between; padding: 22px 28px 14px; }
+.brand { border: 0; padding: 0; color: inherit; background: none; cursor: pointer; font-family: var(--font-heading); font-size: 34px; font-weight: 600; letter-spacing: -.025em; }
+.dateline { color: color-mix(in srgb, var(--color-text) 58%, transparent); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.navbar { display: grid; grid-template-columns: repeat(8, 1fr); margin: 0 28px; overflow: hidden; border-radius: 14px; }
+.navbtn { appearance: none; border: 0; border-radius: 0; padding: 13px 4px; color: var(--color-text); background: transparent; cursor: pointer; font-family: var(--font-heading); font-size: 14px; font-weight: 600; letter-spacing: .02em; text-align: center; }
+.navbtn:hover { background: rgba(0,136,176,.12); }
+.navbtn.active { color: #fff; background: linear-gradient(150deg, rgba(0,136,176,.95), rgba(0,136,176,.78)); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.navbtn:focus-visible, .daycell:focus-visible, .brand:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.landing { flex: 1; display: flex; flex-direction: column; gap: 22px; min-height: 0; padding: 30px 28px 20px; }
+.card-row { display: grid; min-height: 0; }
+.states-row { grid-template-columns: repeat(3, 1fr); flex: 0 0 378px; gap: 20px; }
+.faith-row { grid-template-columns: repeat(5, 1fr); flex: 0 0 442px; gap: 16px; }
+.calendar-card { display: flex; flex-direction: column; min-height: 0; overflow: hidden; background-clip: padding-box; transition: box-shadow .18s ease, transform .18s ease; }
+.calendar-card:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(32,30,29,.14), inset 0 1px 0 rgba(255,255,255,.9); }
+.state-card { padding: 18px 20px 16px; border-radius: 16px; }
+.faith-card { padding: 15px 15px 13px; border-radius: 14px; }
+.card-meta { display: flex; align-items: baseline; justify-content: space-between; }
+.card-kicker { color: var(--color-accent-700); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.faith-card .card-kicker { font-size: 9px; }
+.native { color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 11px; font-style: italic; }
+.faith-card .native { margin-top: 0; font-size: 10px; }
+.card-title { margin-top: 4px; font-family: var(--font-heading); font-size: 26px; font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.faith-card .card-title { margin-top: 3px; font-size: 20px; }
+.weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 12px; }
+.faith-card .weekdays { margin-top: 10px; }
+.weekdays span { padding-bottom: 5px; color: color-mix(in srgb, var(--color-text) 45%, transparent); font-size: 9px; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.faith-card .weekdays span { padding-bottom: 4px; font-size: 8px; letter-spacing: .06em; }
+.day-grid { display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 33px; gap: 2px; }
+.faith-card .day-grid { grid-auto-rows: 36px; }
+.daycell { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 0; border: 1px solid rgba(255,255,255,.55); border-radius: var(--radius-md); color: var(--color-text); background: rgba(255,255,255,.34); backdrop-filter: blur(6px); font-size: 13px; font-variant-numeric: tabular-nums; user-select: none; }
+.faith-card .daycell { font-size: 11px; }
+.daycell.blank { border-color: transparent; color: transparent; background: transparent; backdrop-filter: none; }
+.daycell.marked { border-color: rgba(255,255,255,.7); color: var(--color-accent-800); background: linear-gradient(150deg, rgba(0,136,176,.30), rgba(0,136,176,.14)); box-shadow: 0 4px 12px rgba(0,136,176,.18); cursor: pointer; font-weight: 600; }
+.daycell.today { border-color: rgba(255,255,255,.5); color: #fff; background: linear-gradient(150deg, rgba(214,0,108,.94), rgba(214,0,108,.74)); box-shadow: 0 6px 16px rgba(214,0,108,.28); cursor: pointer; font-weight: 600; }
+.observances { margin-top: auto; padding-top: 10px; font-size: 12px; line-height: 1.45; }
+.faith-card .observances { padding-top: 8px; font-size: 11px; line-height: 1.4; }
+.obs-row { display: flex; gap: 8px; }
+.faith-card .obs-row { gap: 6px; }
+.obs-day { min-width: 20px; color: color-mix(in srgb, var(--color-text) 45%, transparent); font-variant-numeric: tabular-nums; }
+.faith-card .obs-day { min-width: 16px; }
+.obs-row.today .obs-label { color: var(--color-accent-2); font-weight: 600; }
+.obs-label { color: color-mix(in srgb, var(--color-text) 78%, transparent); }
+
+.detail { flex: 1; display: grid; grid-template-columns: 1fr 330px; gap: 22px; min-height: 0; padding: 24px 28px 26px; }
+.detail-panel { display: flex; flex-direction: column; min-height: 0; padding: 22px 24px 24px; border-radius: 18px; }
+.detail-heading { display: flex; align-items: baseline; gap: 14px; }
+.detail-title { font-family: var(--font-heading); font-size: 40px; font-weight: 600; letter-spacing: -.025em; line-height: 1.12; }
+.detail-native { color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 14px; font-style: italic; }
+.month-label { margin-top: 2px; color: var(--color-accent-700); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.detail .weekdays { margin-top: 16px; }
+.detail .weekdays span { padding-bottom: 8px; font-size: 10px; letter-spacing: .12em; }
+.detail-grid { flex: 1; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(6, 1fr); gap: 4px; min-height: 0; }
+.detail .daycell { align-items: flex-start; justify-content: flex-start; padding: 8px 0 0; font-size: 17px; }
+.detail .daycell.blank { padding: 0; }
+.detail-label { align-self: center; padding: 2px 4px 0; font-size: 10px; line-height: 1.25; text-align: center; }
+.side-panel { padding: 22px; }
+.today-kicker, .also-title { color: var(--color-accent-2); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.today-title { margin-top: 6px; font-family: var(--font-heading); font-size: 30px; font-weight: 600; letter-spacing: -.02em; line-height: 1.08; }
+.today-date { margin-top: 4px; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 13px; }
+.today-body { margin-top: 18px; font-size: 15px; line-height: 1.6; }
+.today-italic { margin-top: 12px; font-size: 15px; font-style: italic; line-height: 1.6; }
+.also-title { margin-top: 26px; color: color-mix(in srgb, var(--color-text) 50%, transparent); }
+.also-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.also-row { display: flex; gap: 10px; font-size: 14px; line-height: 1.35; }
+.also-day { min-width: 24px; color: var(--color-accent-700); font-variant-numeric: tabular-nums; }
+.home-btn { margin-top: auto; }
+
+@media (max-width: 1211px) {
+  .app { transform-origin: top left; transform: scale(calc(100vw / 1212)); }
+}
